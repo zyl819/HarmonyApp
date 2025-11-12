@@ -1,0 +1,10 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/Login",
+    "pages/Register",
+    "pages/Events",
+    "pages/Coupons",
+    "pages/Shop"
+  ]
+}

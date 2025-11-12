@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>健康平台预览</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Arial; margin: 0; padding: 24px; background: #f7f7f7; }
+    h1 { font-size: 28px; margin: 0 0 8px; }
+    .nav { display: flex; gap: 12px; margin: 16px 0 24px; }
+    button { font-size: 18px; padding: 12px 20px; border: none; border-radius: 8px; color: #fff; cursor: pointer; }
+    .primary { background: #1565C0; }
+    .green { background: #2E7D32; }
+    .teal { background: #00695C; }
+    .purple { background: #8E24AA; }
+    .card { background: #fff; border-radius: 12px; padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 6px rgba(0,0,0,.06); }
+    .row { display: flex; gap: 12px; align-items: center; }
+    .muted { color: #555; }
+    .danger { color: #D32F2F; }
+    .total { font-size: 20px; }
+  </style>
+  <script>
+    function show(id) {
+      document.querySelectorAll('.view').forEach(v => v.style.display = 'none');
+      document.getElementById(id).style.display = 'block';
+    }
+    window.addEventListener('DOMContentLoaded', () => show('home'));
+  </script>
+  </head>
+<body>
+  <h1>健康生活平台（预览）</h1>
+  <p class="muted">登录、线下活动报名、优惠券与健康超市示意</p>
+  <script>
+    let loggedIn = false;
+    function updateNav() {
+      const nav = document.querySelector('.nav');
+      nav.innerHTML = '';
+      const btnLogin = document.createElement('button');
+      btnLogin.className = 'primary';
+      btnLogin.textContent = loggedIn ? '已登录' : '登录/注册';
+      btnLogin.onclick = () => show('login');
+      nav.appendChild(btnLogin);
+      if (loggedIn) {
+        const btnEvents = document.createElement('button');
+        btnEvents.className = 'teal';
+        btnEvents.textContent = '社区线下活动';
+        btnEvents.onclick = () => show('events');
+        nav.appendChild(btnEvents);
+        const btnCoupons = document.createElement('button');
+        btnCoupons.className = 'purple';
+        btnCoupons.textContent = '优惠券与超市';
+        btnCoupons.onclick = () => show('coupons');
+        nav.appendChild(btnCoupons);
+      }
+    }
+  </script>
+  <div class="nav"></div>
+
+  <div id="home" class="view" style="display:none">
+    <div class="card">
+      欢迎使用！请通过上方导航进入各模块。
+    </div>
+  </div>
+
+  <div id="login" class="view" style="display:none">
+    <div class="card">
+      <h2>账号登录</h2>
+      <div class="row"><input placeholder="手机号" style="font-size:18px;padding:8px" /></div>
+      <div class="row"><input placeholder="密码" type="password" style="font-size:18px;padding:8px" /></div>
+      <div class="row">
+        <button class="green" onclick="loggedIn=true; updateNav(); show('events')">登录</button>
+        <button class="primary" onclick="show('register')">去注册</button>
+      </div>
+    </div>
+    <div id="register" class="card">
+      <h2>注册新用户</h2>
+      <div class="row"><input placeholder="姓名（可选）" style="font-size:18px;padding:8px" /></div>
+      <div class="row"><input placeholder="手机号" style="font-size:18px;padding:8px" /></div>
+      <div class="row"><input placeholder="设置密码" type="password" style="font-size:18px;padding:8px" /></div>
+      <div class="row">
+        <button class="green" onclick="loggedIn=true; updateNav(); show('events')">完成注册并登录</button>
+      </div>
+    </div>
+  </div>
+  <script>updateNav();</script>
+
+  <div id="events" class="view" style="display:none">
+    <div class="card">
+      <div class="row">
+        <h2 style="margin:0">秋季养生讲座</h2>
+        <span class="danger">推荐</span>
+      </div>
+      <div class="muted">附近社区医院 · 朝阳社区医院报告厅</div>
+      <div>2025-11-20 09:30 · 距离 800m</div>
+      <button class="teal" style="margin-top:8px">报名参加</button>
+    </div>
+    <div class="card">
+      <h2 style="margin:0">慢病管理课堂</h2>
+      <div class="muted">邻里健康中心 · 二楼</div>
+      <div>2025-11-25 14:00 · 距离 1.5km</div>
+      <button class="teal" style="margin-top:8px">报名参加</button>
+    </div>
+  </div>
+
+  <div id="coupons" class="view" style="display:none">
+    <div class="card">
+      <h2 style="margin:0">低钠食品优惠券</h2>
+      <div class="muted">邻里健康超市 · 满50减10</div>
+      <div class="row" style="margin-top:8px">
+        <button class="purple">领取</button>
+        <button class="primary" onclick="show('shop')">去购买低钠食品</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="shop" class="view" style="display:none">
+    <div class="card">
+      <h2 style="margin:0">合作健康超市</h2>
+      <div class="row"><input type="checkbox" /> 低钠盐 500g · ¥29.90</div>
+      <div class="row"><input type="checkbox" /> 低钠酱油 1L · ¥39.90</div>
+      <div class="row"><input type="checkbox" /> 低钠饼干 300g · ¥24.90</div>
+      <p class="muted">已领取优惠券：满50减10（示意）</p>
+      <p class="total">合计：¥94.70 · 优惠：¥10.00</p>
+      <button class="primary">结算</button>
+    </div>
+  </div>
+</body>
+</html>
