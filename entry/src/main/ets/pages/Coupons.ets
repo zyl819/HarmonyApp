@@ -17,18 +17,16 @@ struct Coupons {
   @StorageLink('userLoggedIn') userLoggedIn: boolean = false;
   // 从AppStorage获取优惠券列表，默认空数组
   @State coupons: Coupon[] = (AppStorage.Get('coupons') as Coupon[]) ?? [];
+  @State availableCoupons: Coupon[] = [];
+  @State loading: boolean = false;
+  @State error: string = '';
 
-  // 所有可领取的优惠券数据
-  private allCoupons: Coupon[] = [
-    {
-      id: 'c1',
-      title: '低钠食品优惠券',
-      desc: '合作健康超市 满50减10',
-      partner: '邻里健康超市',
-      amount: 10,
-      threshold: 50
-    }
-  ];
+  private fetchAvailableCoupons() {
+    this.loading = true;
+    this.error = '';
+    this.availableCoupons = [];
+    this.loading = false;
+  }
 
   // 领取优惠券方法
   private claim(coupon: Coupon) {
@@ -49,6 +47,9 @@ struct Coupons {
     if (!this.userLoggedIn) {
       router.replaceUrl({ url: 'pages/Login' });
     }
+    if (this.userLoggedIn) {
+      this.fetchAvailableCoupons();
+    }
   }
 
   build() {
@@ -56,8 +57,7 @@ struct Coupons {
     Column() {
       // 仅当登录状态为true时，渲染优惠券列表
       if (this.userLoggedIn) {
-        // 循环渲染所有可领取的优惠券
-        ForEach(this.allCoupons, (coupon: Coupon) => {
+        ForEach(this.availableCoupons, (coupon: Coupon) => {
           Column() {
             // 优惠券标题
             Text(coupon.title)
@@ -97,7 +97,17 @@ struct Coupons {
           // 分隔线
           Divider()
             .margin({ left: 16, right: 16 })
-        }, (coupon: Coupon) => coupon.id) // 为ForEach指定唯一键（必填）
+        }, (coupon: Coupon) => coupon.id)
+        if (this.loading) {
+          Text('加载中…')
+            .fontSize(18)
+            .fontColor('#777777')
+        }
+        if (this.error) {
+          Text(this.error)
+            .fontSize(18)
+            .fontColor('#D32F2F')
+        }
       }
     }
     .height('100%')

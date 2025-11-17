@@ -16,13 +16,6 @@ interface Product {
   price: number;
 }
 
-// 商品数据常量
-const PRODUCTS: Product[] = [
-  { id: 'p1', name: '低钠盐 500g', price: 29.9 },
-  { id: 'p2', name: '低钠酱油 1L', price: 39.9 },
-  { id: 'p3', name: '低钠饼干 300g', price: 24.9 }
-];
-
 // 修复1：@Entry 与 @Component 紧邻（无空行），符合语法规范
 @Entry
 @Component
@@ -34,10 +27,20 @@ struct Shop {
   @State tip: string = '';
   // 优化类型安全：使用泛型 Get，避免类型断言
   private coupons: Coupon[] = AppStorage.Get<Coupon[]>('coupons') ?? [];
+  @State products: Product[] = [];
+  @State loading: boolean = false;
+  @State error: string = '';
+
+  private fetchProducts() {
+    this.loading = true;
+    this.error = '';
+    this.products = [];
+    this.loading = false;
+  }
 
   // 重新计算总价和优惠
   private recalc() {
-    const selectedProducts = PRODUCTS.filter(p => this.selectedIds.includes(p.id));
+    const selectedProducts = this.products.filter(p => this.selectedIds.includes(p.id));
     this.total = selectedProducts.reduce((sum, p) => sum + p.price, 0);
     const validCoupon = this.coupons.find(c => this.total >= c.threshold);
     this.discount = validCoupon ? validCoupon.amount : 0;
@@ -66,6 +69,9 @@ struct Shop {
     if (!this.userLoggedIn) {
       router.replaceUrl({ url: 'pages/Login' });
     }
+    if (this.userLoggedIn) {
+      this.fetchProducts();
+    }
   }
 
   build() {
@@ -80,7 +86,7 @@ struct Shop {
           .margin({ top: 24 })
 
         // 商品列表：ForEach 添加唯一键（必填规范）
-        ForEach(PRODUCTS, (p: Product) => {
+        ForEach(this.products, (p: Product) => {
           Row({ space: 12 }) {
             // 修复4：Checkbox 无 select 方法，使用 checked 方法绑定状态
             Checkbox({ name: p.name, group: 'cart' })
@@ -93,6 +99,17 @@ struct Shop {
           // Divider 放在 Row 内部，避免布局错误
           Divider()
         }, (p: Product) => p.id) // 唯一键：商品 id
+
+        if (this.loading) {
+          Text('加载中…')
+            .fontSize(18)
+            .fontColor('#777777')
+        }
+        if (this.error) {
+          Text(this.error)
+            .fontSize(18)
+            .fontColor('#D32F2F')
+        }
 
         // 优惠券显示（完全移除UI区域的变量声明）
         if (this.coupons.length > 0) {

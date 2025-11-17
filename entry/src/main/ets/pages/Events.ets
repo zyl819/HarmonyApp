@@ -16,25 +16,16 @@ struct Events {
   @StorageLink('userLoggedIn') userLoggedIn: boolean = false;
   @State registeredIds: string[] = AppStorage.Get<string[]>('registeredEvents') ?? [];
 
-  private events: EventItem[] = [
-    {
-      id: '1',
-      title: '秋季养生讲座',
-      organizer: '附近社区医院',
-      time: '2025-11-20 09:30',
-      address: '朝阳社区医院报告厅',
-      recommended: true,
-      distance: '800m'
-    },
-    {
-      id: '2',
-      title: '慢病管理课堂',
-      organizer: '邻里健康中心',
-      time: '2025-11-25 14:00',
-      address: '邻里健康中心二楼',
-      distance: '1.5km'
-    }
-  ];
+  @State events: EventItem[] = [];
+  @State loading: boolean = false;
+  @State error: string = '';
+
+  private fetchEvents() {
+    this.loading = true;
+    this.error = '';
+    this.events = [];
+    this.loading = false;
+  }
 
   private register(id: string) {
     if (!this.registeredIds.some(item => item === id)) {
@@ -48,13 +39,16 @@ struct Events {
     if (!this.userLoggedIn) {
       router.replaceUrl({ url: 'pages/Login' });
     }
+    if (this.userLoggedIn) {
+      this.fetchEvents();
+    }
   }
 
   build() {
     List() {
       // 修复1：移除List下的if判断，通过数据过滤控制渲染
       ForEach(
-        this.userLoggedIn ? this.events : [], // 未登录时渲染空列表
+        this.userLoggedIn ? this.events : [],
         (ev: EventItem) => {
           ListItem() {
             Column({ space: 10 }) {
@@ -97,6 +91,20 @@ struct Events {
         },
         (ev: EventItem) => ev.id
       )
+      if (this.loading) {
+        ListItem() {
+          Text('加载中…')
+            .fontSize(18)
+            .fontColor('#777777')
+        }
+      }
+      if (this.error) {
+        ListItem() {
+          Text(this.error)
+            .fontSize(18)
+            .fontColor('#D32F2F')
+        }
+      }
     }
     .width('100%')
     .height('100%')

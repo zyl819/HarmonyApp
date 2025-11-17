@@ -5,6 +5,7 @@
     "pages/Register",
     "pages/Events",
     "pages/Coupons",
-    "pages/Shop"
+    "pages/Shop",
+    "pages/HealthMetrics"
   ]
 }
