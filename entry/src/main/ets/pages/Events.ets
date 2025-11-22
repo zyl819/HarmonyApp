@@ -120,6 +120,7 @@ struct Events {
       .height('100%')
       .padding(16)
     }
+    .title('活动')
     .onReady(((context:NavDestinationContext)=>{
       this.pathStack = context.pathStack
     }))
