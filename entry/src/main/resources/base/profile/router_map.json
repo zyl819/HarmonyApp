@@ -1,0 +1,21 @@
+{
+  "routerMap": [
+    {
+      "name": "Events",
+      "pageSourceFile": "src/main/ets/pages/Events.ets",
+      "buildFunction": "EventsBuilder"
+    },
+
+    {
+      "name": "HealthMetrics",
+      "pageSourceFile": "src/main/ets/pages/HealthMetrics.ets",
+      "buildFunction": "HealthMetricsBuilder"
+    },
+
+    {
+      "name": "Coupons",
+      "pageSourceFile": "src/main/ets/pages/Coupons.ets",
+      "buildFunction": "CouponsBuilder"
+    }
+  ]
+}

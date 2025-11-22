@@ -1,5 +1,6 @@
 {
   "module": {
+    "routerMap": "$profile:router_map",
     "name": "entry",
     "type": "entry",
     "description": "$string:module_desc",
@@ -15,9 +16,9 @@
         "name": "EntryAbility",
         "srcEntry": "./ets/entryability/EntryAbility.ets",
         "description": "$string:EntryAbility_desc",
-        "icon": "$media:layered_image",
+        "icon": "$media:Gemini_Generated_Image_qijtulqijtulqijt",
         "label": "$string:EntryAbility_label",
-        "startWindowIcon": "$media:startIcon",
+        "startWindowIcon": "$media:Gemini_Generated_Image_qijtulqijtulqijt",
         "startWindowBackground": "$color:start_window_background",
         "exported": true,
         "skills": [
