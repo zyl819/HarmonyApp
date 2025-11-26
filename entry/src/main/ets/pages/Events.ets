@@ -30,7 +30,16 @@ struct Events {
   private fetchEvents() {
     this.loading = true;
     this.error = '';
-    this.events = [];
+    
+    // 模拟活动数据
+    this.events = [
+      { id: 'e001', title: '社区健康跑', organizer: '街道办事处', time: '周六 08:00', address: '中心公园', recommended: true, distance: '1.2km' },
+      { id: 'e002', title: '老年营养讲座', organizer: '社区医院', time: '周日 14:00', address: '市民活动中心', distance: '500m' },
+      { id: 'e003', title: '亲子瑜伽体验', organizer: '优加瑜伽馆', time: '周六 10:00', address: '阳光广场3楼', recommended: true, distance: '2.5km' },
+      { id: 'e004', title: '义诊活动', organizer: '红十字会', time: '下周一 09:00', address: '社区广场', distance: '800m' },
+      { id: 'e005', title: '健步走比赛', organizer: '体育局', time: '下周六 07:30', address: '滨河步道', distance: '3.0km' },
+    ];
+
     this.loading = false;
   }
 
@@ -43,22 +52,26 @@ struct Events {
   }
 
   aboutToAppear() {
-    if (!this.userLoggedIn) {
-      router.replaceUrl({ url: 'pages/Login' });
-    }
-    if (this.userLoggedIn) {
+    // 移除登录跳转，直接加载数据
+    // if (!this.userLoggedIn) {
+    //   router.replaceUrl({ url: 'pages/Login' });
+    // }
+    // if (this.userLoggedIn) {
       this.fetchEvents();
-    }
+    // }
   }
 
   build() {
     NavDestination() {
-      Text('111111')
-        .fontSize(11)
+      // Text('111111')
+      //   .fontSize(11)
       List() {
         // 修复1：移除List下的if判断，通过数据过滤控制渲染
         ForEach(
-          this.userLoggedIn ? this.events : [],
+          // 移除登录判断，直接显示所有活动
+          // this.userLoggedIn ? this.events : [],
+          this.events,
+
           (ev: EventItem) => {
             ListItem() {
               Column({ space: 10 }) {

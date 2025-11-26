@@ -164,6 +164,8 @@ export struct MenuPage {
       .justifyContent(FlexAlign.Center)
     }
     .hideTitleBar(true)
+    .height('100%')
+    .width('100%')
 
   }
 

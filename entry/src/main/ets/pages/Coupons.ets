@@ -31,7 +31,16 @@ struct Coupons {
   private fetchAvailableCoupons() {
     this.loading = true;
     this.error = '';
-    this.availableCoupons = [];
+    
+    // 模拟可领取的优惠券数据
+    this.availableCoupons = [
+      { id: 'c101', title: '新用户立减', desc: '无门槛使用', partner: '官方平台', amount: 10, threshold: 0 },
+      { id: 'c102', title: '满100减20', desc: '限健康食品', partner: '绿叶优选', amount: 20, threshold: 100 },
+      { id: 'c103', title: '满200减50', desc: '全场通用', partner: '健康生活馆', amount: 50, threshold: 200 },
+      { id: 'c104', title: '低钠专享券', desc: '仅限低钠盐产品', partner: '盐选生活', amount: 5, threshold: 30 },
+      { id: 'c105', title: '健康讲座票', desc: '线上课程抵扣', partner: '云课堂', amount: 50, threshold: 0 },
+    ];
+
     this.loading = false;
   }
 

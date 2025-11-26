@@ -56,7 +56,23 @@ struct HealthMetrics {
   private fetchEntries(): void {
     this.loading = true;
     this.error = '';
-    this.entries = this.entries;
+    
+    // 模拟历史数据
+    const mockData: MetricEntry[] = [
+      { date: '2023-11-20', weight: 69.5, systolic: 122, diastolic: 81, heartRate: 72 },
+      { date: '2023-11-21', weight: 69.2, systolic: 120, diastolic: 80, heartRate: 70 },
+      { date: '2023-11-22', weight: 68.8, systolic: 118, diastolic: 78, heartRate: 68 },
+      { date: '2023-11-23', weight: 69.0, systolic: 119, diastolic: 79, heartRate: 71 },
+      { date: '2023-11-24', weight: 68.5, systolic: 120, diastolic: 80, heartRate: 70 },
+    ];
+
+    // 如果当前没有数据，则加载模拟数据
+    if (this.entries.length === 0) {
+      this.entries = mockData;
+      // 同步到 AppStorage 以便持久化（可选）
+      AppStorage.SetOrCreate('healthMetrics', mockData);
+    }
+
     this.loading = false;
   }
 

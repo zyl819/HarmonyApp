@@ -34,7 +34,19 @@ struct Shop {
   private fetchProducts() {
     this.loading = true;
     this.error = '';
-    this.products = [];
+    
+    // 模拟商品数据
+    this.products = [
+      { id: 'p001', name: '低钠海盐', price: 12.5 },
+      { id: 'p002', name: '全麦面包(6片)', price: 8.9 },
+      { id: 'p003', name: '无糖燕麦奶', price: 18.0 },
+      { id: 'p004', name: '有机西蓝花', price: 9.9 },
+      { id: 'p005', name: '鸡胸肉(500g)', price: 15.5 },
+      { id: 'p006', name: '高纤玉米片', price: 22.0 },
+      { id: 'p007', name: '黑咖啡粉', price: 45.0 },
+      { id: 'p008', name: '橄榄油(500ml)', price: 68.0 },
+    ];
+
     this.loading = false;
   }
 
