@@ -18,7 +18,7 @@ export function CouponsBuilder() {
 @Entry
 @Component
 struct Coupons {
-  pathStack: NavPathStack = new NavPathStack()
+  // pathStack: NavPathStack = new NavPathStack()  // 用户要求移除
 
   // 绑定登录状态（从Storage中获取）
   @StorageLink('userLoggedIn') userLoggedIn: boolean = false;
@@ -70,7 +70,7 @@ struct Coupons {
 
   build() {
     NavDestination() {
-      // 根节点：整个页面使用Column布局
+        // 根节点：整个页面使用Column布局
       Column() {
         // 仅当登录状态为true时，渲染优惠券列表
         if (this.userLoggedIn) {
@@ -131,9 +131,9 @@ struct Coupons {
       .width('100%')
       .padding(16)
     }
-    .onReady(((context:NavDestinationContext)=>{
-      this.pathStack = context.pathStack
-    }))
+    // .onReady(((context:NavDestinationContext)=>{
+    //   this.pathStack = context.pathStack
+    // }))
   }
 }
 

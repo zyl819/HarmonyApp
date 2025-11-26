@@ -5,7 +5,7 @@ import UserAuthIcon from '@ohos.userIAM.userAuthIcon';
 
 @Component
 export struct MenuPage {
-  pathStack: NavPathStack = new NavPathStack()
+  // pathStack: NavPathStack = new NavPathStack()
 
   @StorageLink('userLoggedIn') userLoggedIn: boolean = false;
   @State registeredIds: string[] = [];
@@ -25,7 +25,6 @@ export struct MenuPage {
   }
 
   build() {
-    Navigation(this.pathStack) {
       Column({ space: 24 }) {
         Text('健康生活平台')
           .fontSize(28)
@@ -51,12 +50,6 @@ export struct MenuPage {
             .alignItems(HorizontalAlign.Center)
             .padding({ top: 20, bottom: 4 })
 
-            // 次级提示
-            // Text('请先登录或注册后继续使用全部功能')
-            //   .fontSize(18)
-            //   .fontColor('#666666')
-            //   .textAlign(TextAlign.Center)
-            //   .width('100%')
 
             // 登录按钮（主按钮）
             Button() {
@@ -127,35 +120,29 @@ export struct MenuPage {
             }
           }
 
-          Column() {
-            this.cardItemBuilde('附近社区线下活动', 'Events')
-            this.cardItemBuilde('优惠券与健康超市', 'Coupons')
-            this.cardItemBuilde('体质监管', 'HealthMetrics')
+          Button('附近社区线下活动')
+            .fontSize(22)
+            .backgroundColor('#00695C')
+            .height(56)
+            .onClick(() => {
+              router.pushUrl({ url: 'pages/Events' });
+            })
 
-          }
-          // Button('附近社区线下活动')
-          //   .fontSize(22)
-          //   .backgroundColor('#00695C')
-          //   .height(56)
-          //   .onClick(() => {
-          //     router.pushUrl({ url: 'pages/Events' });
-          //   })
-          //
-          // Button('优惠券与健康超市')
-          //   .fontSize(22)
-          //   .backgroundColor('#8E24AA')
-          //   .height(56)
-          //   .onClick(() => {
-          //     router.pushUrl({ url: 'pages/Coupons' });
-          //   })
-          //
-          // Button('体质监管')
-          //   .fontSize(22)
-          //   .backgroundColor('#1565C0')
-          //   .height(56)
-          //   .onClick(() => {
-          //     router.pushUrl({ url: 'pages/HealthMetrics' });
-          //   })
+          Button('优惠券与健康超市')
+            .fontSize(22)
+            .backgroundColor('#8E24AA')
+            .height(56)
+            .onClick(() => {
+              router.pushUrl({ url: 'pages/Coupons' });
+            })
+
+          Button('体质监管')
+            .fontSize(22)
+            .backgroundColor('#1565C0')
+            .height(56)
+            .onClick(() => {
+              router.pushUrl({ url: 'pages/HealthMetrics' });
+            })
         }
       }
       .padding(24)
@@ -163,35 +150,6 @@ export struct MenuPage {
       .height('100%')
       .justifyContent(FlexAlign.Center)
     }
-    .hideTitleBar(true)
-    .height('100%')
-    .width('100%')
 
   }
 
-  @Builder
-  cardItemBuilde(title:string, pageName:string) {
-    Row() {
-      Column() {
-        Text(title)
-          .fontSize(20)
-          .fontWeight(500);
-      }
-      .margin(20)
-      .layoutWeight(1)
-      .alignItems(HorizontalAlign.Start);
-    }
-    .width('100%')
-    .margin(10)
-    .borderRadius(10)
-    .justifyContent(FlexAlign.SpaceBetween)
-    .alignItems(VerticalAlign.Center)
-    .backgroundColor('#ff558dfd')
-    //.linearGradient({ angle: 135, colors: [['#0a59f7', 0.1], ['#FFFFFF', 1 - 0.618], ['#0a59f7', 1]] })
-    .onClick(() => {
-      //跳功能页面
-      this.pathStack.pushPathByName(pageName,null)
-      // onClickFun()
-    })
-  }
-}

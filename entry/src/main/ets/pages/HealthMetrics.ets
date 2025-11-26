@@ -17,7 +17,7 @@ export function HealthMetricsBuilder() {
 @Entry
 @Component
 struct HealthMetrics {
-  pathStack: NavPathStack = new NavPathStack()
+  // pathStack: NavPathStack = new NavPathStack()
 
   @StorageLink('userLoggedIn') userLoggedIn: boolean = false;
   @State entries: MetricEntry[] = AppStorage.Get<MetricEntry[]>('healthMetrics') ?? [];
@@ -97,7 +97,7 @@ struct HealthMetrics {
   }
 
   build() {
-    NavDestination() {
+    // NavDestination() {
       Scroll() {
         Column({ space: 12 }) {
           Text('体质监管')
@@ -201,10 +201,11 @@ struct HealthMetrics {
       }
       .height('100%')
       .width('100%')
-    }
-    .onReady(((context:NavDestinationContext)=>{
-      this.pathStack = context.pathStack
-    }))
+      .backgroundColor('#FFFFFF')
+    // }
+    // .onReady(((context:NavDestinationContext)=>{
+    //   this.pathStack = context.pathStack
+    // }))
   }
 
 }

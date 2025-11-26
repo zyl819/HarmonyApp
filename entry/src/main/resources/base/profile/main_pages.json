@@ -3,6 +3,9 @@
     "pages/Index",
     "pages/Login",
     "pages/Register",
-    "pages/Shop"
+    "pages/Shop",
+    "pages/Events",
+    "pages/Coupons",
+    "pages/HealthMetrics"
   ]
 }

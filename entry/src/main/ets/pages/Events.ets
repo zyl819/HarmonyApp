@@ -18,7 +18,7 @@ export function EventsBuilder() {
 @Entry
 @Component
 struct Events {
-  pathStack: NavPathStack = new NavPathStack()
+  // pathStack: NavPathStack = new NavPathStack()
 
   @StorageLink('userLoggedIn') userLoggedIn: boolean = false;
   @State registeredIds: string[] = AppStorage.Get<string[]>('registeredEvents') ?? [];
@@ -62,7 +62,7 @@ struct Events {
   }
 
   build() {
-    NavDestination() {
+    // NavDestination() {
       // Text('111111')
       //   .fontSize(11)
       List() {
@@ -132,11 +132,11 @@ struct Events {
       .width('100%')
       .height('100%')
       .padding(16)
-    }
-    .title('活动')
-    .onReady(((context:NavDestinationContext)=>{
-      this.pathStack = context.pathStack
-    }))
+    // }
+    // .title('活动')
+    // .onReady(((context:NavDestinationContext)=>{
+    //   this.pathStack = context.pathStack
+    // }))
   }
 
 }
